@@ -2,6 +2,11 @@
 Webview图片与SDWebImage缓存共享示例
 ### 原理: 继承NSURLProtocol, 重写startLoading方法, 当SDImageCache(其他缓存框架方案类似)存在该图片时, 将其二进制数据添加到client已加载的数据中
 
+### 使用方法:
+```  
+[NSURLProtocol registerClass:[LJURLCacheProtocol class]];
+```  
+
 ### 具体实现:
 ```  
 //判断加载未加载过的图片
@@ -10,7 +15,7 @@ Webview图片与SDWebImage缓存共享示例
         NSString *str = request.URL.path;
         //筛选图片 且已处理过的不再处理防止无限循环
         if (([str hasSuffix:@".png"] || [str hasSuffix:@".jpg"] || [str hasSuffix:@".jpeg"] || [str hasSuffix:@".gif"])
-            && ![NSURLProtocol propertyForKey:SPLNSURLProtocolKey inRequest:request]) {
+            && ![NSURLProtocol propertyForKey:LJURLCacheProtocolKey inRequest:request]) {
             return YES;
         }
     }
@@ -26,7 +31,7 @@ Webview图片与SDWebImage缓存共享示例
 - (void)startLoading {
     NSMutableURLRequest *mutableReqeust = [[self request] mutableCopy];
     //给处理过的请求设置标记 防止递归调用
-    [NSURLProtocol setProperty:@YES forKey:SPLNSURLProtocolKey inRequest:mutableReqeust];
+    [NSURLProtocol setProperty:@YES forKey:LJURLCacheProtocolKey inRequest:mutableReqeust];
     
     //利用SDWebImage寻找本地图片
     NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:self.request.URL];

@@ -96,3 +96,7 @@ Webview图片与SDWebImage缓存共享示例, 可避免不必要的图片加载,
     }
 }
 ```  
+
+# WKWebView Coming Soon
+
+    self.responseData = [[NSMutableData alloc] init];

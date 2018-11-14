@@ -1,5 +1,5 @@
 # WebViewImageCache
-Webview图片与SDWebImage缓存共享示例
+Webview图片与SDWebImage缓存共享示例, 可避免不必要的图片加载, 例如:点击查看大图时不需要再次去下载图片
 ### 原理: 继承NSURLProtocol, 重写startLoading方法, 当SDImageCache(其他缓存框架方案类似)存在该图片时, 将其二进制数据添加到client已加载的数据中
 
 ### 使用方法:

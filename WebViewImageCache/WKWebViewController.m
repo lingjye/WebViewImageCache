@@ -40,9 +40,8 @@
     [self.wkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"demo_1" ofType:@"html"]]]];
 }
 
-- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
-    NSLog(@"%@", webView.URL.absoluteString);
-    NSString *absoluteString = webView.URL.absoluteString;
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    NSString *absoluteString = navigationAction.request.URL.absoluteString;
     if ([absoluteString hasPrefix:@"ljwebimageclick:"]) {
         //获取点击图片index
         NSInteger index = [[absoluteString substringFromIndex:@"ljWebImageClick:".length] integerValue];
@@ -50,7 +49,11 @@
             index = 0;
         }
         [self showBigImageWithUrl:self.imageUrls[index]];
+        decisionHandler(WKNavigationActionPolicyCancel);
+        return;
     }
+    
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 - (void)showBigImageWithUrl:(NSString *)url {

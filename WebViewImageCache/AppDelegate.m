@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "LJURLCacheProtocol.h"
+#import "RootViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,6 +20,16 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [NSURLProtocol registerClass:[LJURLCacheProtocol class]];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = UIColor.whiteColor;
+    
+    RootViewController *rootViewController = [[RootViewController alloc] init];
+    UINavigationController *nav            = [[UINavigationController alloc] initWithRootViewController:rootViewController];
+    
+    self.window.rootViewController = nav;
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

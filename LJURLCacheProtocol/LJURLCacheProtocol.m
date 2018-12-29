@@ -9,7 +9,11 @@
 #import "LJURLCacheProtocol.h"
 #import <SDWebImage/SDWebImageManager.h>
 #import <SDWebImage/UIImage+MultiFormat.h>
-
+#import <SDWebImage/SDWebImageCodersManager.h>
+#import <SDWebImage/SDWebImageManager.h>
+#ifdef SD_WEBP
+#import <SDWebImage/UIImage+WebP.h>
+#endif
 static NSString *const LJURLCacheProtocolKey = @"LJURLCacheProtocolKey";
 
 @interface LJURLCacheProtocol ()<NSURLSessionDataDelegate>
@@ -23,13 +27,18 @@ static NSString *const LJURLCacheProtocolKey = @"LJURLCacheProtocolKey";
 @implementation LJURLCacheProtocol
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
-    if ([request.URL.scheme isEqualToString:@"http"] || [request.URL.scheme isEqualToString:@"https"]) {
+    if ([request.URL.scheme isEqualToString:@"http"] ||
+        [request.URL.scheme isEqualToString:@"https"]
+        ) {
         NSString *str = request.URL.path;
         //筛选图片 且已处理过的不再处理防止无限循环
-        if (([str hasSuffix:@".png"] || [str hasSuffix:@".jpg"] || [str hasSuffix:@".jpeg"] || [str hasSuffix:@".gif"])
+        if (([str hasSuffix:@".png"] || [str hasSuffix:@".jpg"] || [str hasSuffix:@".jpeg"] || [str hasSuffix:@".gif"] || [str hasSuffix:@"webp"])
             && ![NSURLProtocol propertyForKey:LJURLCacheProtocolKey inRequest:request]) {
             return YES;
         }
+    }
+    if ([request.URL.absoluteString hasPrefix:@"ljwebimageclick:"]) {
+        return YES;
     }
     return NO;
 }
@@ -52,24 +61,44 @@ static NSString *const LJURLCacheProtocolKey = @"LJURLCacheProtocolKey";
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
     NSData *data = [[SDImageCache sharedImageCache] performSelector:NSSelectorFromString(@"diskImageDataBySearchingAllPathsForKey:") withObject:key];
 #pragma clang diagnostic pop
-    
+  
     if (data) {
-        NSURLResponse *response = [[NSURLResponse alloc] initWithURL:mutableReqeust.URL
-                                                            MIMEType:(__bridge NSString*)[NSData sd_UTTypeFromSDImageFormat:[NSData sd_imageFormatForImageData:data]]
-                                               expectedContentLength:data.length
-                                                    textEncodingName:nil];
-        [self.client URLProtocol:self
-              didReceiveResponse:response
-              cacheStoragePolicy:NSURLCacheStorageNotAllowed];
-        
-        [self.client URLProtocol:self didLoadData:data];
-        [self.client URLProtocolDidFinishLoading:self];
+        if ([self.request.URL.absoluteString hasSuffix:@"webp"]) {
+            NSLog(@"webp---%@---替换它",self.request.URL);
+            //采用 SDWebImage 的转换方法
+            data = [self webpData:data];
+        }
+        [self appendLocalData:data url:self.request.URL];
     } else {
-        NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
-        self.task = [session dataTaskWithRequest:self.request];
-        [self.task resume];
+        if ([self.request.URL.absoluteString hasSuffix:@"webp"]) {
+            //webp
+            [[SDWebImageManager sharedManager] loadImageWithURL:self.request.URL options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+                
+            } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+                [self appendLocalData:[self webpData:data] url:self.request.URL];
+            }];
+            return;
+        }else {
+            NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
+            self.task = [session dataTaskWithRequest:self.request];
+            [self.task resume];
+        }
     }
 }
+
+- (void)appendLocalData:(NSData *)data url:(NSURL *)url {
+    NSURLResponse *response = [[NSURLResponse alloc] initWithURL:url
+                                                        MIMEType:(__bridge NSString*)[NSData sd_UTTypeFromSDImageFormat:[NSData sd_imageFormatForImageData:data]]
+                                           expectedContentLength:data.length
+                                                textEncodingName:nil];
+    [self.client URLProtocol:self
+          didReceiveResponse:response
+          cacheStoragePolicy:NSURLCacheStorageNotAllowed];
+    
+    [self.client URLProtocol:self didLoadData:data];
+    [self.client URLProtocolDidFinishLoading:self];
+}
+
 
 - (void)stopLoading {
     if (self.task != nil) {
@@ -86,7 +115,14 @@ static NSString *const LJURLCacheProtocolKey = @"LJURLCacheProtocolKey";
 }
 
 - (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
-    [self.responseData appendData:data];
+    NSData *transData = data;
+    if ([dataTask.currentRequest.URL.absoluteString hasSuffix:@"webp"]) {
+        NSLog(@"webp---%@---替换它",dataTask.currentRequest.URL);
+        //采用 SDWebImage 的转换方法
+        transData = [self webpData:data];
+    }
+    
+    [self.responseData appendData:transData];
     [[self client] URLProtocol:self didLoadData:data];
 }
 
@@ -103,4 +139,12 @@ static NSString *const LJURLCacheProtocolKey = @"LJURLCacheProtocolKey";
         [self.client URLProtocolDidFinishLoading:self];
     }
 }
+
+- (NSData *)webpData:(NSData *)data{
+//    return data;
+    UIImage *image =  [[SDWebImageCodersManager sharedInstance] decodedImageWithData:data];
+    NSData *imageData = [image sd_imageDataAsFormat:SDImageFormatGIF];
+    return imageData;
+}
+
 @end

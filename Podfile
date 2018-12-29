@@ -6,7 +6,9 @@ target 'WebViewImageCache' do
   # use_frameworks!
 
   # Pods for WebViewImageCache
-  pod 'SDWebImage'
+  pod 'SDWebImage', '~>4.4.3'
+  pod 'iOS-WebP', path: 'WebViewImageCache'
+  pod 'SDWebImage/WebP'
 
   target 'WebViewImageCacheTests' do
     inherit! :search_paths

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B537F3BAA79933A4AB60DBE8B4DACC4F"
+               BlueprintIdentifier = "51666C3DEE5EDC9B5B47FB4A62D47C8B"
                BlueprintName = "Pods-WebViewImageCache"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "libPods-WebViewImageCache.a">

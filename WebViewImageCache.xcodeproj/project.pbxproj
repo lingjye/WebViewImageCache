@@ -10,7 +10,7 @@
 		1585122FB54403D9E6D541E4 /* libPods-WebViewImageCacheUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB609F97A58ED9EAF8AD557 /* libPods-WebViewImageCacheUITests.a */; };
 		1DCEC1034B0B62852511776E /* libPods-WebViewImageCache.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF2345F166188593850A9F23 /* libPods-WebViewImageCache.a */; };
 		2EB121992196B15400064B31 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB121982196B15400064B31 /* AppDelegate.m */; };
-		2EB1219C2196B15400064B31 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB1219B2196B15400064B31 /* ViewController.m */; };
+		2EB1219C2196B15400064B31 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB1219B2196B15400064B31 /* WebViewController.m */; };
 		2EB1219F2196B15400064B31 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EB1219D2196B15400064B31 /* Main.storyboard */; };
 		2EB121A12196B15400064B31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EB121A02196B15400064B31 /* Assets.xcassets */; };
 		2EB121A42196B15400064B31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EB121A22196B15400064B31 /* LaunchScreen.storyboard */; };
@@ -18,6 +18,12 @@
 		2EB121B12196B15500064B31 /* WebViewImageCacheTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB121B02196B15500064B31 /* WebViewImageCacheTests.m */; };
 		2EB121BC2196B15500064B31 /* WebViewImageCacheUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB121BB2196B15500064B31 /* WebViewImageCacheUITests.m */; };
 		2EB121CC2196B23200064B31 /* LJURLCacheProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB121CB2196B23200064B31 /* LJURLCacheProtocol.m */; };
+		2EF95C7921D5AB0A00D7D21F /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF95C7821D5AB0A00D7D21F /* RootViewController.m */; };
+		2EF95C7C21D5ABDB00D7D21F /* WKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF95C7B21D5ABDB00D7D21F /* WKWebViewController.m */; };
+		2EF95C7E21D5BE8500D7D21F /* demo.html in Resources */ = {isa = PBXBuildFile; fileRef = 2EF95C7D21D5BE8500D7D21F /* demo.html */; };
+		2EF95C8221D5CC7400D7D21F /* UIImage+WebP.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF95C8021D5CC7400D7D21F /* UIImage+WebP.m */; };
+		2EF95C8821D616FE00D7D21F /* demo_1.html in Resources */ = {isa = PBXBuildFile; fileRef = 2EF95C8721D616FD00D7D21F /* demo_1.html */; };
+		2EF95C8B21D61AB600D7D21F /* NSURLProtocol+WKWebview.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF95C8A21D61AB600D7D21F /* NSURLProtocol+WKWebview.m */; };
 		6B862A24AC15017C43000D15 /* libPods-WebViewImageCacheTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7EA71170FF6C7BF0F3A2462 /* libPods-WebViewImageCacheTests.a */; };
 /* End PBXBuildFile section */
 
@@ -43,8 +49,8 @@
 		2EB121942196B15400064B31 /* WebViewImageCache.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WebViewImageCache.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EB121972196B15400064B31 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2EB121982196B15400064B31 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		2EB1219A2196B15400064B31 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		2EB1219B2196B15400064B31 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		2EB1219A2196B15400064B31 /* WebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		2EB1219B2196B15400064B31 /* WebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		2EB1219E2196B15400064B31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2EB121A02196B15400064B31 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2EB121A32196B15400064B31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -58,6 +64,16 @@
 		2EB121BD2196B15500064B31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2EB121CA2196B23200064B31 /* LJURLCacheProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LJURLCacheProtocol.h; sourceTree = "<group>"; };
 		2EB121CB2196B23200064B31 /* LJURLCacheProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LJURLCacheProtocol.m; sourceTree = "<group>"; };
+		2EF95C7721D5AB0A00D7D21F /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		2EF95C7821D5AB0A00D7D21F /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		2EF95C7A21D5ABDB00D7D21F /* WKWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WKWebViewController.h; sourceTree = "<group>"; };
+		2EF95C7B21D5ABDB00D7D21F /* WKWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WKWebViewController.m; sourceTree = "<group>"; };
+		2EF95C7D21D5BE8500D7D21F /* demo.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = demo.html; sourceTree = "<group>"; };
+		2EF95C8021D5CC7400D7D21F /* UIImage+WebP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+WebP.m"; sourceTree = "<group>"; };
+		2EF95C8121D5CC7400D7D21F /* UIImage+WebP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+WebP.h"; sourceTree = "<group>"; };
+		2EF95C8721D616FD00D7D21F /* demo_1.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = demo_1.html; sourceTree = "<group>"; };
+		2EF95C8921D61AB600D7D21F /* NSURLProtocol+WKWebview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURLProtocol+WKWebview.h"; sourceTree = "<group>"; };
+		2EF95C8A21D61AB600D7D21F /* NSURLProtocol+WKWebview.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSURLProtocol+WKWebview.m"; sourceTree = "<group>"; };
 		3685E6F3049040D266FB6F9B /* Pods-WebViewImageCache.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebViewImageCache.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebViewImageCache/Pods-WebViewImageCache.debug.xcconfig"; sourceTree = "<group>"; };
 		6DD6C977D716498B29810987 /* Pods-WebViewImageCacheTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebViewImageCacheTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebViewImageCacheTests/Pods-WebViewImageCacheTests.debug.xcconfig"; sourceTree = "<group>"; };
 		764F0744EB43224985553187 /* Pods-WebViewImageCacheTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebViewImageCacheTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebViewImageCacheTests/Pods-WebViewImageCacheTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -122,15 +138,22 @@
 		2EB121962196B15400064B31 /* WebViewImageCache */ = {
 			isa = PBXGroup;
 			children = (
+				2EF95C7F21D5CC7400D7D21F /* iOS-WebP */,
 				2EB121972196B15400064B31 /* AppDelegate.h */,
 				2EB121982196B15400064B31 /* AppDelegate.m */,
-				2EB1219A2196B15400064B31 /* ViewController.h */,
-				2EB1219B2196B15400064B31 /* ViewController.m */,
+				2EF95C7721D5AB0A00D7D21F /* RootViewController.h */,
+				2EF95C7821D5AB0A00D7D21F /* RootViewController.m */,
+				2EB1219A2196B15400064B31 /* WebViewController.h */,
+				2EB1219B2196B15400064B31 /* WebViewController.m */,
+				2EF95C7A21D5ABDB00D7D21F /* WKWebViewController.h */,
+				2EF95C7B21D5ABDB00D7D21F /* WKWebViewController.m */,
 				2EB1219D2196B15400064B31 /* Main.storyboard */,
 				2EB121A02196B15400064B31 /* Assets.xcassets */,
 				2EB121A22196B15400064B31 /* LaunchScreen.storyboard */,
 				2EB121A52196B15400064B31 /* Info.plist */,
 				2EB121A62196B15400064B31 /* main.m */,
+				2EF95C8721D616FD00D7D21F /* demo_1.html */,
+				2EF95C7D21D5BE8500D7D21F /* demo.html */,
 			);
 			path = WebViewImageCache;
 			sourceTree = "<group>";
@@ -158,8 +181,19 @@
 			children = (
 				2EB121CA2196B23200064B31 /* LJURLCacheProtocol.h */,
 				2EB121CB2196B23200064B31 /* LJURLCacheProtocol.m */,
+				2EF95C8921D61AB600D7D21F /* NSURLProtocol+WKWebview.h */,
+				2EF95C8A21D61AB600D7D21F /* NSURLProtocol+WKWebview.m */,
 			);
 			path = LJURLCacheProtocol;
+			sourceTree = "<group>";
+		};
+		2EF95C7F21D5CC7400D7D21F /* iOS-WebP */ = {
+			isa = PBXGroup;
+			children = (
+				2EF95C8021D5CC7400D7D21F /* UIImage+WebP.m */,
+				2EF95C8121D5CC7400D7D21F /* UIImage+WebP.h */,
+			);
+			path = "iOS-WebP";
 			sourceTree = "<group>";
 		};
 		65F26C50FF6B583EDF2D5DFE /* Pods */ = {
@@ -292,6 +326,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EB121A42196B15400064B31 /* LaunchScreen.storyboard in Resources */,
+				2EF95C7E21D5BE8500D7D21F /* demo.html in Resources */,
+				2EF95C8821D616FE00D7D21F /* demo_1.html in Resources */,
 				2EB121A12196B15400064B31 /* Assets.xcassets in Resources */,
 				2EB1219F2196B15400064B31 /* Main.storyboard in Resources */,
 			);
@@ -387,10 +423,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EB1219C2196B15400064B31 /* ViewController.m in Sources */,
+				2EB1219C2196B15400064B31 /* WebViewController.m in Sources */,
+				2EF95C8B21D61AB600D7D21F /* NSURLProtocol+WKWebview.m in Sources */,
 				2EB121A72196B15400064B31 /* main.m in Sources */,
 				2EB121CC2196B23200064B31 /* LJURLCacheProtocol.m in Sources */,
 				2EB121992196B15400064B31 /* AppDelegate.m in Sources */,
+				2EF95C8221D5CC7400D7D21F /* UIImage+WebP.m in Sources */,
+				2EF95C7921D5AB0A00D7D21F /* RootViewController.m in Sources */,
+				2EF95C7C21D5ABDB00D7D21F /* WKWebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,18 +6,21 @@
 //  Copyright © 2018年 lingjye. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "WebViewController.h"
 #import "LJURLCacheProtocol.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
-@interface ViewController ()<UIWebViewDelegate>
-
+@interface WebViewController ()<UIWebViewDelegate>
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) NSMutableArray *imageUrls;
 
 @end
 
-@implementation ViewController
+@implementation WebViewController
+
+- (void)dealloc {
+    NSLog(@"%s", __func__);
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -32,13 +35,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     [self.view addSubview:self.webView];
     
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://www.jianshu.com/p/f1894f9eff72"]]];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"demo" ofType:@"html"]]]];
 }
 
 #pragma mark UIWebViewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    
     //将url转换为string
     NSString *requestString = [[request URL] absoluteString];
     //hasPrefix 判断创建的字符串内容是否以pic:字符开始
@@ -55,7 +60,7 @@
 }
 
 - (void)showBigImageWithUrl:(NSString *)url {
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     imageView.backgroundColor = [UIColor blackColor];
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     imageView.userInteractionEnabled = YES;
@@ -88,7 +93,7 @@
     var objs = document.getElementsByTagName(\"img\");\
     var imgSrc = '';\
     for(var i=0;i<objs.length;i++){\
-    imgSrc = imgSrc + objs[i].src + ',';\
+    imgSrc = imgSrc + objs[i].src + ';';\
     +function( _i ){\
     objs[ _i ].onclick = function(){\
     document.location=\"ljWebImageClick:\" + _i;\
@@ -101,7 +106,7 @@
     [webView stringByEvaluatingJavaScriptFromString:jsGetImages];//注入js方法
     
     NSString *urlResult = [webView stringByEvaluatingJavaScriptFromString:@"getImages()"];
-    NSMutableArray *mutImgs = [NSMutableArray arrayWithArray:[urlResult componentsSeparatedByString:@","]];
+    NSMutableArray *mutImgs = [NSMutableArray arrayWithArray:[urlResult componentsSeparatedByString:@";"]];
     [mutImgs removeObject:@""];
     [self.imageUrls addObjectsFromArray:mutImgs];
     NSLog(@"---调用js方法--%@  %s  jsMehtods_result = %@",self.class,__func__, mutImgs);

@@ -1,18 +1,56 @@
 PODS:
-  - SDWebImage (4.4.2):
-    - SDWebImage/Core (= 4.4.2)
-  - SDWebImage/Core (4.4.2)
+  - iOS-WebP (0.5):
+    - libwebp (~> 0.5.0)
+  - libwebp (0.5.2):
+    - libwebp/core (= 0.5.2)
+    - libwebp/dec (= 0.5.2)
+    - libwebp/demux (= 0.5.2)
+    - libwebp/dsp (= 0.5.2)
+    - libwebp/enc (= 0.5.2)
+    - libwebp/mux (= 0.5.2)
+    - libwebp/utils (= 0.5.2)
+    - libwebp/webp (= 0.5.2)
+  - libwebp/core (0.5.2):
+    - libwebp/webp
+  - libwebp/dec (0.5.2):
+    - libwebp/core
+  - libwebp/demux (0.5.2):
+    - libwebp/core
+  - libwebp/dsp (0.5.2):
+    - libwebp/core
+  - libwebp/enc (0.5.2):
+    - libwebp/core
+  - libwebp/mux (0.5.2):
+    - libwebp/core
+  - libwebp/utils (0.5.2):
+    - libwebp/core
+  - libwebp/webp (0.5.2)
+  - SDWebImage (4.4.3):
+    - SDWebImage/Core (= 4.4.3)
+  - SDWebImage/Core (4.4.3)
+  - SDWebImage/WebP (4.4.3):
+    - libwebp (~> 0.5)
+    - SDWebImage/Core
 
 DEPENDENCIES:
-  - SDWebImage
+  - iOS-WebP (from `WebViewImageCache`)
+  - SDWebImage (~> 4.4.3)
+  - SDWebImage/WebP
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - libwebp
     - SDWebImage
 
-SPEC CHECKSUMS:
-  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+EXTERNAL SOURCES:
+  iOS-WebP:
+    :path: WebViewImageCache
 
-PODFILE CHECKSUM: cb44b10349f8a90542c8bc42a7679c5053c969ef
+SPEC CHECKSUMS:
+  iOS-WebP: 2a8a11b33f05fbc622397256c4dc51999ee47aaf
+  libwebp: 307b5adb9cd2998933faf9d802389a919634c800
+  SDWebImage: c5594f1a19c48d526d321e548902b56b479cd508
+
+PODFILE CHECKSUM: 335b997c96e4284ff15e37e93c154138c4d077d9
 
 COCOAPODS: 1.5.3

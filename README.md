@@ -97,4 +97,6 @@ Webview图片与SDWebImage缓存共享示例, 可避免不必要的图片加载,
 }
 ```  
 
-# WKWebView Coming Soon
+# 支持WKWebView 但是引入了私有API, 可能上架被拒
+### 注意:
+#### WKWebView拦截只在第一次加载时走startLoading方法, 此时依然可以在NSURLSessionDataDelegate方法中将图片缓存到本地

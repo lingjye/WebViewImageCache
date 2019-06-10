@@ -11,11 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^didClickBlock)(UIImage *image, CGFloat progress);
-
 @interface LJWKURLSchemeHandler : NSObject<WKURLSchemeHandler>
-
-@property (nonatomic, copy) didClickBlock clickBlock;
 
 @end
 

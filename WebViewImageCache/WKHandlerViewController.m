@@ -14,8 +14,6 @@
 
 @interface WKHandlerViewController () <WKNavigationDelegate, WKUIDelegate>
 @property (nonatomic, strong) WKWebView *wkWebView;
-@property (nonatomic, strong) LJWKURLSchemeHandler *handler;
-
 @end
 
 @implementation WKHandlerViewController
@@ -122,7 +120,6 @@
         } else {
             // Fallback on earlier versions
         }
-        _handler = handler;
 
         WKPreferences *preferences = [WKPreferences new];
         preferences.javaScriptCanOpenWindowsAutomatically = YES;

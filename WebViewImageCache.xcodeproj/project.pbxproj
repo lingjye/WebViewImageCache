@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		1585122FB54403D9E6D541E4 /* libPods-WebViewImageCacheUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB609F97A58ED9EAF8AD557 /* libPods-WebViewImageCacheUITests.a */; };
 		1DCEC1034B0B62852511776E /* libPods-WebViewImageCache.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF2345F166188593850A9F23 /* libPods-WebViewImageCache.a */; };
+		2E70415022ADE33000C852FD /* LJWKURLSchemeHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E70414F22ADE33000C852FD /* LJWKURLSchemeHandler.m */; };
+		2E70415322ADF97E00C852FD /* WKHandlerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E70415222ADF97E00C852FD /* WKHandlerViewController.m */; };
+		2E70415522ADFDC100C852FD /* demo_2.html in Resources */ = {isa = PBXBuildFile; fileRef = 2E70415422ADFDC100C852FD /* demo_2.html */; };
 		2EB121992196B15400064B31 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB121982196B15400064B31 /* AppDelegate.m */; };
 		2EB1219C2196B15400064B31 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB1219B2196B15400064B31 /* WebViewController.m */; };
 		2EB1219F2196B15400064B31 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EB1219D2196B15400064B31 /* Main.storyboard */; };
@@ -46,6 +49,11 @@
 
 /* Begin PBXFileReference section */
 		2131A1D343AFC09CDD51CC97 /* Pods-WebViewImageCache.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebViewImageCache.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebViewImageCache/Pods-WebViewImageCache.release.xcconfig"; sourceTree = "<group>"; };
+		2E70414E22ADE33000C852FD /* LJWKURLSchemeHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LJWKURLSchemeHandler.h; sourceTree = "<group>"; };
+		2E70414F22ADE33000C852FD /* LJWKURLSchemeHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LJWKURLSchemeHandler.m; sourceTree = "<group>"; };
+		2E70415122ADF97E00C852FD /* WKHandlerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WKHandlerViewController.h; sourceTree = "<group>"; };
+		2E70415222ADF97E00C852FD /* WKHandlerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WKHandlerViewController.m; sourceTree = "<group>"; };
+		2E70415422ADFDC100C852FD /* demo_2.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = demo_2.html; sourceTree = "<group>"; };
 		2EB121942196B15400064B31 /* WebViewImageCache.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WebViewImageCache.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EB121972196B15400064B31 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2EB121982196B15400064B31 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -147,12 +155,17 @@
 				2EB1219B2196B15400064B31 /* WebViewController.m */,
 				2EF95C7A21D5ABDB00D7D21F /* WKWebViewController.h */,
 				2EF95C7B21D5ABDB00D7D21F /* WKWebViewController.m */,
+				2E70415122ADF97E00C852FD /* WKHandlerViewController.h */,
+				2E70415222ADF97E00C852FD /* WKHandlerViewController.m */,
+				2E70414E22ADE33000C852FD /* LJWKURLSchemeHandler.h */,
+				2E70414F22ADE33000C852FD /* LJWKURLSchemeHandler.m */,
 				2EB1219D2196B15400064B31 /* Main.storyboard */,
 				2EB121A02196B15400064B31 /* Assets.xcassets */,
 				2EB121A22196B15400064B31 /* LaunchScreen.storyboard */,
 				2EB121A52196B15400064B31 /* Info.plist */,
 				2EB121A62196B15400064B31 /* main.m */,
 				2EF95C8721D616FD00D7D21F /* demo_1.html */,
+				2E70415422ADFDC100C852FD /* demo_2.html */,
 				2EF95C7D21D5BE8500D7D21F /* demo.html */,
 			);
 			path = WebViewImageCache;
@@ -325,6 +338,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E70415522ADFDC100C852FD /* demo_2.html in Resources */,
 				2EB121A42196B15400064B31 /* LaunchScreen.storyboard in Resources */,
 				2EF95C7E21D5BE8500D7D21F /* demo.html in Resources */,
 				2EF95C8821D616FE00D7D21F /* demo_1.html in Resources */,
@@ -423,6 +437,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E70415022ADE33000C852FD /* LJWKURLSchemeHandler.m in Sources */,
+				2E70415322ADF97E00C852FD /* WKHandlerViewController.m in Sources */,
 				2EB1219C2196B15400064B31 /* WebViewController.m in Sources */,
 				2EF95C8B21D61AB600D7D21F /* NSURLProtocol+WKWebview.m in Sources */,
 				2EB121A72196B15400064B31 /* main.m in Sources */,

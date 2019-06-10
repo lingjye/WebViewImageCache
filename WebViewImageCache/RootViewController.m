@@ -9,6 +9,7 @@
 #import "RootViewController.h"
 #import "WebViewController.h"
 #import "WKWebViewController.h"
+#import "WKHandlerViewController.h"
 
 @interface RootViewController ()
 {
@@ -29,7 +30,8 @@
     self.navigationItem.title = @"WebViewImageCache";
     
     _viewControllers = @[ [WebViewController class],
-                          [WKWebViewController class] ];
+                          [WKWebViewController class],
+                          [WKHandlerViewController class] ];
 }
 
 #pragma mark - Table view data source

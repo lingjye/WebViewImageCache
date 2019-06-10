@@ -1,22 +1,24 @@
 //
-//  WKWebViewController.m
+//  WKHandlerViewController.m
 //  WebViewImageCache
 //
-//  Created by txooo on 2018/12/28.
-//  Copyright © 2018 lingjye. All rights reserved.
+//  Created by txooo on 2019/6/10.
+//  Copyright © 2019 lingjye. All rights reserved.
 //
 
-#import "WKWebViewController.h"
+#import "WKHandlerViewController.h"
 #import <WebKit/WebKit.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "NSURLProtocol+WKWebview.h"
+#import "LJWKURLSchemeHandler.h"
 
-@interface WKWebViewController () <WKNavigationDelegate, WKUIDelegate>
+@interface WKHandlerViewController () <WKNavigationDelegate, WKUIDelegate>
 @property (nonatomic, strong) WKWebView *wkWebView;
-@property (nonatomic, strong) NSMutableArray *imageUrls;
+@property (nonatomic, strong) LJWKURLSchemeHandler *handler;
+
 @end
 
-@implementation WKWebViewController
+@implementation WKHandlerViewController
 
 - (void)dealloc {
     NSLog(@"%s", __func__);
@@ -32,13 +34,10 @@
 
     self.view.backgroundColor = UIColor.whiteColor;
 
-        [NSURLProtocol wk_registerScheme:@"http"];
-        [NSURLProtocol wk_registerScheme:@"https"];
-
     [self.view addSubview:self.wkWebView];
 
     [self.wkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle]
-                                                                                        pathForResource:@"demo_1"
+                                                                                        pathForResource:@"demo_2"
                                                                                                  ofType:@"html"]]]];
 }
 
@@ -48,26 +47,22 @@
     NSString *absoluteString = navigationAction.request.URL.absoluteString;
     if ([absoluteString hasPrefix:@"ljwebimageclick:"]) {
         //获取点击图片index
-        NSInteger index = [[absoluteString substringFromIndex:@"ljWebImageClick:".length] integerValue];
-        if (index > self.imageUrls.count) {
-            index = 0;
-        }
-        [self showBigImageWithUrl:self.imageUrls[index]];
+        NSURL *url = [NSURL URLWithString:[absoluteString substringFromIndex:@"ljWebImageClick:".length]];
+        [self showBigImageWithUrl:url];
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }
-
     decisionHandler(WKNavigationActionPolicyAllow);
 }
 
-- (void)showBigImageWithUrl:(NSString *)url {
+- (void)showBigImageWithUrl:(NSURL *)url {
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     imageView.backgroundColor = [UIColor blackColor];
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     imageView.userInteractionEnabled = YES;
-    [imageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil];
+    [imageView sd_setImageWithURL:url placeholderImage:nil];
     [[UIApplication sharedApplication].keyWindow addSubview:imageView];
-
+    
     imageView.alpha = 0;
 
     [UIView animateWithDuration:0.3
@@ -91,30 +86,26 @@
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    static NSString *const jsGetImages = @"function getImages(){\
+    static NSString *const jsGetImages = @"function clickFunc(){\
     var objs = document.getElementsByTagName(\"img\");\
-    var imgSrc = '';\
     for(var i=0;i<objs.length;i++){\
-    imgSrc = imgSrc + objs[i].src + ';';\
     +function( _i ){\
     objs[ _i ].onclick = function(){\
-    document.location=\"ljWebImageClick:\" + _i;\
+    document.location=objs[_i].src;\
     };\
     } ( i );\
     };\
-    return imgSrc;\
     };";
     [webView evaluateJavaScript:jsGetImages
               completionHandler:^(id _Nullable obj, NSError *_Nullable error) {
                   if (error) {
                       NSLog(@"%@", error.localizedDescription);
                   } else {
-                      [webView evaluateJavaScript:@"getImages()"
+                      [webView evaluateJavaScript:@"clickFunc()"
                                 completionHandler:^(id _Nullable result, NSError *_Nullable error) {
-                                    NSMutableArray *mutImgs =
-                                        [NSMutableArray arrayWithArray:[result componentsSeparatedByString:@";"]];
-                                    [mutImgs removeObject:@""];
-                                    [self.imageUrls addObjectsFromArray:mutImgs];
+                                    if (error) {
+                                        NSLog(@"%@", error.localizedDescription);
+                                    }
                                 }];
                   }
               }];
@@ -122,8 +113,17 @@
 
 - (WKWebView *)wkWebView {
     if (!_wkWebView) {
+        //        WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
         WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
         configuration.userContentController = [[WKUserContentController alloc] init];
+        LJWKURLSchemeHandler *handler = [[LJWKURLSchemeHandler alloc] init];
+        if (@available(iOS 11.0, *)) {
+            [configuration setURLSchemeHandler:handler forURLScheme:@"ljwebimageclick"];
+        } else {
+            // Fallback on earlier versions
+        }
+        _handler = handler;
+
         WKPreferences *preferences = [WKPreferences new];
         preferences.javaScriptCanOpenWindowsAutomatically = YES;
         preferences.minimumFontSize = 30.0;
@@ -139,13 +139,6 @@
         }
     }
     return _wkWebView;
-}
-
-- (NSMutableArray *)imageUrls {
-    if (!_imageUrls) {
-        _imageUrls = [NSMutableArray array];
-    }
-    return _imageUrls;
 }
 
 @end

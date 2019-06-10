@@ -77,7 +77,6 @@ static NSString *const LJURLCacheProtocolKey = @"LJURLCacheProtocolKey";
             } completed:^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
                 [self appendLocalData:[self webpData:data] url:self.request.URL];
             }];
-            return;
         }else {
             NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
             self.task = [session dataTaskWithRequest:self.request];
